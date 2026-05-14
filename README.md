@@ -54,7 +54,7 @@ API montada em `/api/v1` (ex.: `/api/v1/produtos`, `/api/v1/precos`).
 
 ```bash
 git clone <url-do-repositorio>
-cd pmpc
+cd pmpc-fullstack
 ```
 
 ### Variáveis de ambiente
