@@ -1,0 +1,16 @@
+{
+  "name": "pmpc",
+  "private": true,
+  "workspaces": ["frontend", "backend"],
+  "scripts": {
+    "dev": "npm run dev --workspace=frontend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "ports:free-3001": "node scripts/free-port-3001.cjs",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f postgres",
+    "db:migrate": "docker compose cp db/schema.sql postgres:/tmp/schema.sql && docker compose exec -T postgres psql -U pmpc -d pmpc -v ON_ERROR_STOP=1 -f /tmp/schema.sql",
+    "stack": "node scripts/dev-stack.cjs"
+  }
+}

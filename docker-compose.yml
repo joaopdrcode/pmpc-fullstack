@@ -1,0 +1,72 @@
+services:
+  migrate:
+    image: postgres:16-alpine
+    container_name: pmpc-migrate
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: pmpc_local
+    volumes:
+      - ./db/schema.sql:/schema.sql:ro
+    command:
+      [
+        "psql",
+        "-h",
+        "postgres",
+        "-U",
+        "pmpc",
+        "-d",
+        "pmpc",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-f",
+        "/schema.sql",
+      ]
+
+  backend:
+    build: ./backend
+    container_name: pmpc-backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://pmpc:pmpc_local@postgres:5432/pmpc
+      PORT: "3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: pmpc-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: pmpc
+      POSTGRES_PASSWORD: pmpc_local
+      POSTGRES_DB: pmpc
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pmpc -d pmpc"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer:latest
+    container_name: pmpc-adminer
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
