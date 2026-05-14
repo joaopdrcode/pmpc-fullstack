@@ -32,7 +32,7 @@ Estrutura: páginas em `frontend/app/`, componentes em `frontend/components/`, s
 | **Configuração**  | dotenv                                     |
 
 
-API montada em `**/api/v1`** (ex.: `/api/v1/produtos`, `/api/v1/precos`).
+API montada em `/api/v1` (ex.: `/api/v1/produtos`, `/api/v1/precos`).
 
 ---
 
@@ -59,7 +59,7 @@ cd pmpc
 
 ### Variáveis de ambiente
 
-Na raiz existe `**.env.example**`. Para o fluxo abaixo basta criar `**frontend/.env.local**` (ex.: `NEXT_PUBLIC_API_URL=http://localhost:3001`).
+Na raiz existe `.env.example`. Para o fluxo abaixo basta criar `frontend/.env.local` (ex.: `NEXT_PUBLIC_API_URL=http://localhost:3001`).
 
 ### Início rápido
 
@@ -68,14 +68,14 @@ npm install
 npm run stack
 ```
 
-`**npm run stack`:** na raiz do repositório, executa `docker compose up -d` (Postgres, aplicação do `db/schema.sql` pelo serviço de migração do Compose, Adminer e backend em containers), espera até a API responder em `http://127.0.0.1:3001/api/v1/health` e inicia o Next.js em modo desenvolvimento com `npm run dev --workspace=frontend`, ficando o terminal associado a esse processo.
+`npm run stack` (com o Docker Desktop rodando): na raiz do repositório, executa `docker compose up -d` (Postgres, aplicação do `db/schema.sql` pelo serviço de migração do Compose, Adminer e backend em containers), espera até a API responder em `http://127.0.0.1:3001/api/v1/health` e inicia o Next.js em modo desenvolvimento com `npm run dev --workspace=frontend`, ficando o terminal associado a esse processo.
 
 Requisitos: **Docker** com **Docker Compose** **v2.20+** (comando `docker compose`) e Node.js **18+**. Ficheiro `frontend/.env.local` com `NEXT_PUBLIC_API_URL` (ver `.env.example`).
 
 ### Parar o projeto
 
-- `**Ctrl+C`** no terminal onde corre `npm run stack` — interrompe só o **Next.js**, os containers Docker continuam em execução.
-- `**npm run db:down`** ou `**docker compose down`** na raiz — para a stack Docker (Postgres, Adminer, backend, etc.). O script `db:down` corresponde a `docker compose down`.
+- `Ctrl+C` no terminal onde corre `npm run stack` — interrompe só o **Next.js**, os containers Docker continuam em execução.
+- `npm run db:down` ou `**docker compose down`** na raiz — para a stack Docker (Postgres, Adminer, backend, etc.). O script `db:down` corresponde a `docker compose down`.
 
 ---
 
