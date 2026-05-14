@@ -42,7 +42,7 @@ API montada em `/api/v1` (ex.: `/api/v1/produtos`, `/api/v1/precos`).
 | Item              | Detalhe                                                                                |
 | ----------------- | -------------------------------------------------------------------------------------- |
 | **SGBD**          | PostgreSQL 16 (imagem Docker `postgres:16-alpine`)                                     |
-| **Migrações**     | `db/schema.sql`, aplicado automaticamente pelo serviço `**migrate`** no Docker Compose |
+| **Migrações**     | `db/schema.sql`, aplicado automaticamente pelo serviço `migrate` no Docker Compose |
 | **Administração** | Adminer (serviço opcional no Docker, porta 8080)                                       |
 
 
@@ -75,7 +75,7 @@ Requisitos: **Docker** com **Docker Compose** **v2.20+** (comando `docker compos
 ### Parar o projeto
 
 - `Ctrl+C` no terminal onde corre `npm run stack` — interrompe só o **Next.js**, os containers Docker continuam em execução.
-- `npm run db:down` ou `**docker compose down`** na raiz — para a stack Docker (Postgres, Adminer, backend, etc.). O script `db:down` corresponde a `docker compose down`.
+- `npm run db:down` ou `docker compose down` na raiz — para a stack Docker (Postgres, Adminer, backend, etc.). O script `db:down` corresponde a `docker compose down`.
 
 ---
 
